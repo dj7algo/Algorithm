@@ -4,6 +4,7 @@
 * programmers: https://programmers.co.kr/learn/challenges
 * 삼성swexpert: https://swexpertacademy.com/main/main.do
 * codeup: https://codeup.kr/
+* 노션: https://www.notion.so/parkjyeon/916fe35da67248448bcd5fc0e6d282d0
 
 
 
