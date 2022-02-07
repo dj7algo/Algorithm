@@ -6,6 +6,8 @@ public class Main{
 	static int[][] dice = new int[N][6]; 
 	static int max;
 	static int result = 0;
+
+	// 재귀함수로, 1층부터 차례대로 올라가면서 위아래면 제외하고 Max값 출력
 	static void findmax(int floor, int bot) {
 		if (floor == N) {
 			return;
@@ -13,7 +15,7 @@ public class Main{
 			int nextbot = 0;
 			for (int i = 0 ; i < 6; i++) {
 				if (dice[floor][i] == bot) {
-					Set<Integer> temp = new HashSet<Integer>(Arrays.asList(1,2,3,4,5,6));
+					Set<Integer> temp = new HashSet<Integer>(Arrays.asList(1,2,3,4,5,6)); // 여기서 위아래값을 제거한다음에 최대값을 찾을것임. 코드 더럽다
 					switch(i) {
 					case 0:
 						nextbot = dice[floor][5];
@@ -51,7 +53,7 @@ public class Main{
 				}
 				
 			}
-			findmax(floor+1, nextbot);
+			findmax(floor+1, nextbot); // 다음층으로 올리면서 주사위 맨 아랫값 보냄.
 		}
 	}
 	public static void main(String[] args) throws Exception{
@@ -70,7 +72,7 @@ public class Main{
 				dice[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
-		// 1. 1층 맨위가 x일때
+		// 1층 맨위가 1일때 2일때 ... 6일때 까지 전부찾아보기!
 		for (int x = 1 ; x <= 6; x++) {
 			max = 0;
 			findmax(0,x);
