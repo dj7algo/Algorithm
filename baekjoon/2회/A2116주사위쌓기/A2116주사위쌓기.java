@@ -2,7 +2,7 @@ package h2;
 
 import java.io.*;
 import java.util.*;
-
+/* 틀렸습니다 나옴 */
 public class A2116주사위쌓기 {
     public static void main(String[] args) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
