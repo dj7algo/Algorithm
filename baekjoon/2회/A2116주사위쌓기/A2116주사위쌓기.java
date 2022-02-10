@@ -1,10 +1,9 @@
-package h2;
 
 import java.io.*;
 import java.util.*;
-/* 틀렸습니다 나옴 */
+
 public class A2116주사위쌓기 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         int[][] arr = new int[N][6];
@@ -19,7 +18,7 @@ public class A2116주사위쌓기 {
         }
         
         int max=0;
-        for(int i=0;i<N;i++){
+        for(int i=0;i<6;i++){
             // 0번째 주사위
             int bottomIdx = i;
             int topIdx=(i+3)%6;
