@@ -2,6 +2,11 @@ package TwoPointer;
 
 import java.util.Scanner;
 
+/*
+앞에서부터 1씩증가 뒤는 1씩감소 하며 최대값을 찾는 과정
+->투포인터 방식을 사용하여 중복되는 연산은 피한다 
+
+*/
 public class B2559 {
 	public static void main(String[] args) {
 		

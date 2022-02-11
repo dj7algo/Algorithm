@@ -1,7 +1,10 @@
 package A0209;
 
 import java.util.*;
-
+/*
+ 배열을 이용하여 색종이별로 수를 입력
+ 배열 돌면서 0인지 아닌지 검사 
+ */
 public class 색종이2563 {
 	public static void main(String[] args) {
 
