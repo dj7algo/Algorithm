@@ -13,7 +13,6 @@ import java.util.*;
  * 상점의 위치나 동근이의 위치는 블록의 꼭짓점이 될 수 없다.
  */
 
-/*그래도 안 된다...왜그럴까....*/
 public class A2564경비원 {
     public static void main(String[] args) throws IOException {
         System.setIn(new FileInputStream("A2564.txt"));
@@ -27,12 +26,9 @@ public class A2564경비원 {
         for (int i = 0; i < N + 1; i++) {
             st = new StringTokenizer(br.readLine(), " ");
             int p = Integer.parseInt(st.nextToken()); // 북서남동(1324)=>북서남동(1234)로 저장
-            if (p == 2)
-                pos[i][0] = 3;
-            else if (p == 3)
-                pos[i][0] = 2;
-            else
-                pos[i][0] = p;
+            if (p == 2)  pos[i][0] = 3;
+            else if (p == 3) pos[i][0] = 2;
+            else pos[i][0] = p;
             pos[i][1] = Integer.parseInt(st.nextToken());
         }
         // 동근이 위치 pos[N][0], pos[N][1];
@@ -40,17 +36,16 @@ public class A2564경비원 {
         while (pos[N][0] != 3) {
             int k = ((3 - pos[N][0]) == -1) ? 3 : 3 - pos[N][0]; // 방향바꿔줄 값
             for (int i = 0; i < N + 1; i++) {
-                int a = pos[i][0];  // 바뀌기 전 방향
-                pos[i][0] = (pos[i][0] + k > 4) ? (pos[i][0] + k) % 4 : (pos[i][0] + k);    
+                int a = pos[i][0]; // 바뀌기 전 방향
+                pos[i][0] = (pos[i][0] + k > 4) ? (pos[i][0] + k) % 4 : (pos[i][0] + k);
                 if ((a == 2 || a == 3) && (pos[i][0] == 1 || pos[i][0] == 4)) {
-                    if (a == 2) pos[i][1] = H - pos[i][1];
+                    if (a == 2)  pos[i][1] = H - pos[i][1];
                     else pos[i][1] = W - pos[i][1];
                 }
                 if ((a == 1 || a == 4) && (pos[i][0] == 2 || pos[i][0] == 3)) {
                     if (a == 4) pos[i][1] = H - pos[i][1];
-                    else pos[i][1] = W - pos[i][1];
+                    else  pos[i][1] = W - pos[i][1];
                 }
-                // System.out.println(a+"->"+pos[i][0]);
             }
         }
 
@@ -60,27 +55,14 @@ public class A2564경비원 {
         for (int i = 0; i < N; i++) {
             if (pos[i][0] == 3)
                 sum += Math.abs(pos[i][1] - pos[N][1]); // 방향이 같을 때
-                // System.out.println(Math.abs(pos[i][1] - pos[N][1]));
             else if (pos[i][0] == 4)
                 sum += (x - pos[N][1]) + (y - pos[i][1]); // 오른쪽
-                // System.out.println((x - pos[N][1]) + (y-pos[i][1]));
             else if (pos[i][0] == 2)
                 sum += pos[N][1] + (y - pos[i][1]); // 왼쪽
-                // System.out.println(pos[N][1] + (y-pos[i][1]));
             else { // 마주볼 때
-                if(pos[N][1]==x/2){ //짝수인 경우에만 나올 수 있음.
-                    if(pos[i][1]<=x/2)sum += x/2 + y + pos[i][1];
-                    else  sum += x/2 + y + (x - pos[i][1]);
-                }
-                else if (pos[N][1] < x / 2)
-                    sum += pos[N][1] + y + pos[i][1];
-                    // System.out.println("1: "+(pos[N][1] + y + pos[i][1]));
-                else
-                    sum += (x - pos[N][1]) + y + (x - pos[i][1]);
-                    // System.out.println("2: "+ ((x - pos[N][1]) + y + (x - pos[i][1])));
+                sum += Math.min(pos[N][1] + pos[i][1], (x - pos[N][1]) + (x - pos[i][1])) + y;
             }
         }
-        // System.out.println(Arrays.deepToString(pos));
         System.out.println(sum);
     }
 }
