@@ -38,10 +38,10 @@ public class A2564경비원 {
         // 동근이 위치 pos[N][0], pos[N][1];
         int aaa = pos[N][0]; // 기존 동근이 방향
         while (pos[N][0] != 3) {
-            int k = (3 - pos[N][0] == -1) ? 3 : 3 - pos[N][0]; // 방향바꿔줄 값
+            int k = ((3 - pos[N][0]) == -1) ? 3 : 3 - pos[N][0]; // 방향바꿔줄 값
             for (int i = 0; i < N + 1; i++) {
-                int a = pos[i][0];
-                pos[i][0] = (pos[i][0] + k > 4) ? (pos[i][0] + k) % 4 : (pos[i][0] + k);
+                int a = pos[i][0];  // 바뀌기 전 방향
+                pos[i][0] = (pos[i][0] + k > 4) ? (pos[i][0] + k) % 4 : (pos[i][0] + k);    
                 if ((a == 2 || a == 3) && (pos[i][0] == 1 || pos[i][0] == 4)) {
                     if (a == 2) pos[i][1] = H - pos[i][1];
                     else pos[i][1] = W - pos[i][1];
@@ -68,7 +68,11 @@ public class A2564경비원 {
                 sum += pos[N][1] + (y - pos[i][1]); // 왼쪽
                 // System.out.println(pos[N][1] + (y-pos[i][1]));
             else { // 마주볼 때
-                if (pos[N][1] <= x / 2)
+                if(pos[N][1]==x/2){ //짝수인 경우에만 나올 수 있음.
+                    if(pos[i][1]<=x/2)sum += x/2 + y + pos[i][1];
+                    else  sum += x/2 + y + (x - pos[i][1]);
+                }
+                else if (pos[N][1] < x / 2)
                     sum += pos[N][1] + y + pos[i][1];
                     // System.out.println("1: "+(pos[N][1] + y + pos[i][1]));
                 else
