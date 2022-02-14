@@ -2,6 +2,13 @@ package a0213;
 
 import java.util.*;
 
+/*
+ 사각형 크기 상관없이 항상 달팽이 모양 배열 만들기 
+ -> 범위 생각x 조건 생각x 
+ -> 사방탐색 응용하면 제일 간단하다!! 
+ 
+ */
+
 public class B10157 {
 
 	static int garo;
@@ -42,7 +49,7 @@ public class B10157 {
 				ni = nowi+di[d]; nj=nowj+dj[d];
 				
 				while(safe(ni, nj) && !visit[ni][nj] && cnt<=num) {				//좌표 범위내부인지, 방문 안했는지 체크 
-					nowi = ni; nowj = nj;							// 조건 만족하면 지금 방향으로 한칸이동 
+					nowi = ni; nowj = nj;										// 조건 만족하면 지금 방향으로 한칸이동 
 					
 					arr[nowi][nowj] = cnt;							//이동 후 숫자 입력 
 					visit[nowi][nowj] = true;						//방문처리 

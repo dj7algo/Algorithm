@@ -1,6 +1,11 @@
 package a0213;
 
 import java.util.*;
+
+/*
+ 나누기 2를 했을때보다 작은 수는 다다음에 바로 음수가 나오므로 그 부분은 제거하고 
+ 완전탐색을 돌린다. 
+ */
 public class B2635 {
 	public static void main(String[] args) {
 		
