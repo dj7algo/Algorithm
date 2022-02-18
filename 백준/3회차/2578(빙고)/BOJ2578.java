@@ -1,4 +1,3 @@
-package BaekJoon.Implement;
 import java.io.*;
 import java.util.*;
 
