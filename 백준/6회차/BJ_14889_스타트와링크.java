@@ -63,7 +63,6 @@ public class Main {
 			}
 			int diff = Math.abs(sumA-sumB);
 			min = Math.min(diff, min);
-			
 			return;
 		}
 		for (int i = start; i < N; i++) {
