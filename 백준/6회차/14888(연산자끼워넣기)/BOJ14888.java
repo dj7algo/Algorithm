@@ -1,10 +1,12 @@
 import java.util.*;
 import java.io.*;
 public class BOJ14888 {
+
     static int max = Integer.MIN_VALUE;
     static int min = Integer.MAX_VALUE;
     static int[] operation;
     static int[] number;
+
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
