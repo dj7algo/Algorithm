@@ -1,7 +1,7 @@
 [백준 1026 보물](https://www.acmicpc.net/problem/1026)
 
+![image1](image1.jpg)
 ```
-
 B에 있는 수를 재배열하면 안된다. 라는 문구때문에 PERMUTATION으로 풀었다가.
 시간초과가나서, 다시 생각해보니 문제에서 요구하는 답은
 S의 최솟값이였다.
