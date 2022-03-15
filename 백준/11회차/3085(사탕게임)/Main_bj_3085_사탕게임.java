@@ -7,6 +7,7 @@ public class Main_bj_3085_사탕게임 {
 	static int[] dj = {0,0,-1,1};
 	static int max = Integer.MIN_VALUE;
 	static void BFS(char[][] map, int startX, int startY) {
+		//상하부터 BFS진행
 		Queue<int[]> q = new ArrayDeque<int[]>();
 		boolean[][] visited = new boolean[N][N];
 		visited[startX][startY] = true;
@@ -25,7 +26,8 @@ public class Main_bj_3085_사탕게임 {
 			}
 		}
 		max = Math.max(max, eating);
-		
+
+		//좌우 BFS진행
 		q = new ArrayDeque<int[]>();
 		visited = new boolean[N][N];
 		visited[startX][startY] = true;
@@ -66,7 +68,7 @@ public class Main_bj_3085_사탕게임 {
 				arr[i][j+1] = temp;
 				BFS(arr, i, j);
 				BFS(arr, i, j+1);
-				//다시 되돌리고 다음턴으로
+				//다시 되돌리고 다음위치로
 				temp = arr[i][j];
 				arr[i][j] = arr[i][j+1];
 				arr[i][j+1] = temp;
@@ -81,9 +83,9 @@ public class Main_bj_3085_사탕게임 {
 				char temp = arr[i][j];
 				arr[i][j] = arr[i+1][j];
 				arr[i+1][j] = temp;
-				BFS(arr, i, j);
-				BFS(arr, i+1, j);
-				//다시 되돌리고 다음턴으로
+				BFS(arr, i, j); //내쪽에서 BFS
+				BFS(arr, i+1, j); //바꾼쪽에서 BFS
+				//다시 되돌리고 다음위치로
 				temp = arr[i][j];
 				arr[i][j] = arr[i+1][j];
 				arr[i+1][j] = temp;
