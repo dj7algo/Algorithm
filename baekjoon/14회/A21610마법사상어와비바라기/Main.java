@@ -4,87 +4,120 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-  static int[] dx = {0,-1,-1,-1,0,1,1,1};
-  static int[] dy = {-1,-1,0,1,1,1,0,-1};
+  static int[] dx = { 0, -1, -1, -1, 0, 1, 1, 1 };
+  static int[] dy = { -1, -1, 0, 1, 1, 1, 0, -1 };
+  static Queue<Pos> cloud = new LinkedList<>();
+  static int[][] map;
+  static boolean[][] visit;
+  static int N, M, dir, s;
+
   public static void main(String[] args) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-
-    int N = Integer.parseInt(st.nextToken()); // 격자 크기
-    int M = Integer.parseInt(st.nextToken()); // 이동 횟수
-
-    boolean visit[][] = new boolean[N][N]; // 방문처리
-    int[][] map = new int[N][N];
+    N = Integer.parseInt(st.nextToken());
+    M = Integer.parseInt(st.nextToken());
+    map = new int[N][N];
     for (int i = 0; i < N; i++) {
       st = new StringTokenizer(br.readLine(), " ");
       for (int j = 0; j < N; j++) {
         map[i][j] = Integer.parseInt(st.nextToken());
       }
     }
-    int[][] mapCopy = new int[N][N];
-    for(int a=0;a<map.length;a++){
-      System.arraycopy(map, 0, mapCopy, 0, map[0].length);
-    }
+    cloud.add(new Pos(N - 1, 0));
+    cloud.add(new Pos(N - 1, 1));
+    cloud.add(new Pos(N - 2, 0));
+    cloud.add(new Pos(N - 2, 1));
 
-    Queue<Pos> cloude = new LinkedList<>();
-    cloude.add(new Pos(N-1,1));
-    cloude.add(new Pos(N-1,2));
-    cloude.add(new Pos(N,1));
-    cloude.add(new Pos(N,2));
-
-    for(int i=0;i<M;i++){
+    for (int i = 0; i < M; i++) {
+      visit = new boolean[N][N];
       st = new StringTokenizer(br.readLine(), " ");
-      int dir = Integer.parseInt(st.nextToken())-1;
-      int s = Integer.parseInt(st.nextToken());
-      // 1. 비 구름 이동
-      for(int j=0;j<cloude.size();j++){ // 구름 수 만큼 반복
-        Pos pos = cloude.poll();
-        int nx = pos.x, ny = pos.y;
-        for(int a=0;a<s;a++){ // 이동 거리 만큼 반복
-          nx += dx[dir];
-          ny += dy[dir];
-          if(nx<0) nx +=N;
-          else if (nx >= N) nx -= N;
-          if(ny<0) ny +=N;
-          else if(ny>=N) ny-=N;
+      dir = Integer.parseInt(st.nextToken()) - 1;
+      s = Integer.parseInt(st.nextToken());
+      move();
+      rain();
+      direction();
+      make();
+    }
+    int res = 0;
+    for (int i = 0; i < N; i++) {
+      for (int j = 0; j < N; j++)
+        res += map[i][j];
+    }
+    System.out.println(res);
+  }
+
+  private static void make() {
+    // TODO Auto-generated method stub
+    for (int i = 0; i < N; i++) {
+      for (int j = 0; j < N; j++) {
+        if (map[i][j] >= 2 && visit[i][j] == false) {
+          map[i][j] -= 2;
+          cloud.add(new Pos(i, j));
         }
-        // 2. 비가 내리고
-        visit[nx][ny]=true;
-        mapCopy[nx][ny]++;
-        // 4방탐색(대각선으로)
-        int count=0;
-        for(int d=1;d<=8;d+=2){ 
-          int nnx = nx+dx[d];
-          int nny = ny+dy[d];
-          if(nnx<0 || nnx>=N || nny<0 || nny>=N) continue;
-          if(map[nnx][nny]>0) count++;
-        }
-        mapCopy[nx][ny]+=count;
-      }
-      for (int k = 0; k < N; k++) { 
-        for (int l = 0; l < N; l++) {
-          if(mapCopy[k][l]>=2&& !visit[k][l]){
-            mapCopy[k][l]-=2;
-            cloude.add(new Pos(k,l));
-          }
-        }
-      }
-      for (int a = 0; a < map.length; a++) {
-        System.arraycopy(mapCopy, 0, map, 0, map[a].length);
       }
     }
-    int result = 0;
-    for(int i=0;i<N;i++){
-      for(int j=0;j<N;j++) result+=map[i][j];
+  }
+
+  private static void direction() {
+    int size = cloud.size();
+    for (int i = 0; i < size; i++) {
+      Pos pos = cloud.poll();
+      int x = pos.x;
+      int y = pos.y;
+      int cnt = 0;
+      for (int j = 1; j <= 4; j++) {
+        int nx = x + dx[j * 2 - 1];
+        int ny = y + dy[j * 2 - 1];
+        if (0 > nx || nx >= N || 0 > ny || ny >= N)
+          continue;
+        if (map[nx][ny] == 0)
+          continue;
+        cnt++;
+      }
+      map[x][y] += cnt;
+
     }
-    System.out.println(result);
+  }
+
+  private static void rain() {
+    int size = cloud.size();
+    for (int i = 0; i < size; i++) {
+      Pos pos = cloud.poll();
+      visit[pos.x][pos.y] = true;
+      map[pos.x][pos.y] = map[pos.x][pos.y] + 1;
+      cloud.add(new Pos(pos.x, pos.y));
+    }
+  }
+
+  private static void move() {
+    int size = cloud.size();
+
+    for (int i = 0; i < size; i++) {
+      Pos pos = cloud.poll();
+      int x = pos.x;
+      int y = pos.y;
+      for (int j = 0; j < s; j++) {
+        x = x + dx[dir];
+        y = y + dy[dir];
+        if (0 > x)
+          x += N;
+        else if (x >= N)
+          x -= N;
+        if (0 > y)
+          y += N;
+        else if (y >= N)
+          y -= N;
+      }
+      cloud.add(new Pos(x, y));
+    }
   }
 }
 
 class Pos {
-  int x,y;
-  Pos(int x,int y){
-    this.x=x;
-    this.y=y;
+  int x, y;
+
+  Pos(int x, int y) {
+    this.x = x;
+    this.y = y;
   }
 }
