@@ -47,7 +47,6 @@ public class Main {
   }
 
   private static void make() {
-    // TODO Auto-generated method stub
     for (int i = 0; i < N; i++) {
       for (int j = 0; j < N; j++) {
         if (map[i][j] >= 2 && visit[i][j] == false) {
