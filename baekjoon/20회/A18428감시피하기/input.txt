@@ -1,0 +1,18 @@
+5
+X S X X T
+T X S X X
+X X X X X
+X T X X X
+X X T X X
+
+# YES
+
+4
+S S S T
+X X X X
+X X X X
+T T T X
+
+# NO
+
+// 참고 : https://excited-hyun.tistory.com/253
