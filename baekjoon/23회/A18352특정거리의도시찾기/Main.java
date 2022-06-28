@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
 
-  static class Node {// 다음 노드의 인덱스와, 그 노드로 가는데 필요한 비용.
+  static class Node {// 다음 노드의 인덱스와, 그 노드로 가는데 필요한 거리.
     int idx, cost;
 
     Node(int idx, int cost) {
@@ -35,7 +35,7 @@ public class Main {
       graph[s].add(new Node(e,1));  // 거리들은 모두 1
     }
 
-    int[] dist = new int[N + 1]; // 최소 비용을 저장할 배열
+    int[] dist = new int[N + 1]; // 최소 거리을 저장할 배열
     for (int i = 1; i < N + 1; i++) dist[i] = Integer.MAX_VALUE;
     
     // 구현
