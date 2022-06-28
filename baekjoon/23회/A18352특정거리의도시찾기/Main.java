@@ -57,7 +57,7 @@ public class Main {
 
     // 결과
     for (int i = 1; i < N + 1; i++) 
-      if (dist[i] == K) sb.append(i + "\n");
+      if (dist[i] == K) sb.append(i + "\n"); // K만큼의 거리가 있으면 출력
     
     if (sb.toString().trim().length() == 0) sb.append(-1);
 
